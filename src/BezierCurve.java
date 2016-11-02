@@ -51,6 +51,17 @@ public class BezierCurve {
 
     }
 
+    public void ScaleBezierCurve(double coefficient) {
+        for (int i = 1; i < curvePoints.size(); i++)
+        {
+            int x1 = (int)(curvePoints.get(i-1).getX() * coefficient);
+            int y1 = (int)(curvePoints.get(i-1).getY() * coefficient);
+            int x2 = (int)(curvePoints.get(i).getX() * coefficient);
+            int y2 = (int)(curvePoints.get(i).getY() * coefficient);
+            painter.drawLine(x1, y1, x2, y2);
+        }
+    }
+
     private int rotateX(int x, int y, double angle_radians) {
         return (int)(x * Math.cos(angle_radians) - y * Math.sin(angle_radians));
     }

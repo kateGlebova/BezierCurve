@@ -56,6 +56,8 @@ public class Frame extends JFrame {
             curve.TranslateBezierCurve(50, -50);
             g.setColor(Color.BLUE);
             curve.RotateBezierCurve(90);
+            g.setColor(Color.YELLOW);
+            curve.ScaleBezierCurve(1.5);
         }
     }
 
