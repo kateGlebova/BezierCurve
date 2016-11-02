@@ -6,8 +6,8 @@ import java.util.*;
 // A Swing application extends javax.swing.JFrame
 public class Frame extends JFrame {
     // Define constants
-    public static final int CANVAS_WIDTH  = 1000;
-    public static final int CANVAS_HEIGHT = 350;
+    public static final int CANVAS_WIDTH  = 600;
+    public static final int CANVAS_HEIGHT = 600;
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
@@ -32,25 +32,30 @@ public class Frame extends JFrame {
 
     private class DrawCanvas extends JPanel {
 
+        int originX = 300;
+        int originY = 300;
+        ArrayList<Point> CTRLpoints = new ArrayList<Point>() {{
+            add(new Point(-100,-100));
+            add(new Point(-50,100));
+            add(new Point(50,-100));
+            add(new Point(100,100));
+        }};
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             setBackground(Color.BLACK);
             g.setColor(Color.WHITE);
-            g.translate(500, 175);
-            ArrayList<Point> points = new ArrayList<Point>() {{
-                add(new Point(-450,-100));
-                add(new Point(-200,100));
-                add(new Point(150,-100));
-                add(new Point(100,100));
-            }};
-            BezierCurve curve = new BezierCurve(points, g);
+            g.translate(originX, originY);
+            BezierCurve curve = new BezierCurve(CTRLpoints, g);
             curve.DrawBezierCurve();
-            for (int i = 0; i < points.size(); ++i) {
-               g.drawRect((int)points.get(i).getX(), (int)points.get(i).getY(), 2, 2);
+            for (int i = 0; i < CTRLpoints.size(); ++i) {
+               g.drawRect((int)CTRLpoints.get(i).getX(), (int)CTRLpoints.get(i).getY(), 2, 2);
             }
             g.setColor(Color.GREEN);
-            curve.ShiftBezierCurve(50, -50);
+            curve.TranslateBezierCurve(50, -50);
+            g.setColor(Color.BLUE);
+            curve.RotateBezierCurve(90);
         }
     }
 

@@ -23,7 +23,7 @@ public class BezierCurve {
         }
     }
 
-    public void ShiftBezierCurve(int x, int y) {
+    public void TranslateBezierCurve(int x, int y) {
         for (int i = 1; i < curvePoints.size(); i++)
         {
             int x1 = (int)(curvePoints.get(i-1).getX() + x);
@@ -32,6 +32,31 @@ public class BezierCurve {
             int y2 = (int)(curvePoints.get(i).getY() + y);
             painter.drawLine(x1, y1, x2, y2);
         }
+    }
+
+    public void RotateBezierCurve(double angle) {
+        double radians = Math.toRadians(angle);
+        for (int i = 1; i < curvePoints.size(); i++)
+        {
+            int x = (int)(curvePoints.get(i-1).getX());
+            int y = (int)(curvePoints.get(i-1).getY());
+            int x1 = rotateX(x, y, radians);
+            int y1 = rotateY(x, y, radians);
+            x = (int)(curvePoints.get(i).getX());
+            y =(int)(curvePoints.get(i).getY());
+            int x2 = rotateX(x, y, radians);
+            int y2 = rotateY(x, y, radians);
+            painter.drawLine(x1, y1, x2, y2);
+        }
+
+    }
+
+    private int rotateX(int x, int y, double angle_radians) {
+        return (int)(x * Math.cos(angle_radians) - y * Math.sin(angle_radians));
+    }
+
+    private int rotateY(int x, int y, double angle_radians) {
+        return (int)(x * Math.sin(angle_radians) + y * Math.cos(angle_radians));
     }
 
     private void generatePoints() {
